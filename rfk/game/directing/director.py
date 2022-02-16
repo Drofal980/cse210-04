@@ -1,3 +1,8 @@
+from game.shared.point import Point
+ARTIFACT_X_SPEED = 0
+ARTIFACT_Y_SPEED = 15
+SCORE = 0
+
 class Director:
     """A person who directs the game. 
     
@@ -25,6 +30,9 @@ class Director:
             cast (Cast): The cast of actors.
         """
         self._video_service.open_window()
+
+        artifacts = cast.get_actors("artifacts")
+
         while self._video_service.is_window_open():
             self._get_inputs(cast)
             self._do_updates(cast)
@@ -38,8 +46,15 @@ class Director:
             cast (Cast): The cast of actors.
         """
         robot = cast.get_first_actor("robots")
+        artifacts = cast.get_actors("artifacts")
+
         velocity = self._keyboard_service.get_direction()
-        robot.set_velocity(velocity)        
+        robot.set_velocity(velocity)
+
+        down_velocity = Point(ARTIFACT_X_SPEED, ARTIFACT_Y_SPEED)
+        for artifact in artifacts:
+            artifact.set_velocity(down_velocity)
+
 
     def _do_updates(self, cast):
         """Updates the robot's position and resolves any collisions with artifacts.
@@ -55,8 +70,11 @@ class Director:
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
-        
+
         for artifact in artifacts:
+            #Moves each Artifact down
+            artifact.move_next(max_x, max_y)
+
             if robot.get_position().equals(artifact.get_position()):
                 message = artifact.get_message()
                 banner.set_text(message)    

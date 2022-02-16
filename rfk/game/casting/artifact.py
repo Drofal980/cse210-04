@@ -1,4 +1,5 @@
 from game.casting.actor import Actor
+from game.shared.point import Point
 
 # TODO: Implement the Artifact class here. Don't forget to inherit from Actor!
 
@@ -17,6 +18,7 @@ class Artifact(Actor):
     """
     def __init__(self):
         self._message = ""
+        self._velocity = Point(0, 0)
 
     def set_message(self, message):
         self._message = message
@@ -38,6 +40,12 @@ class Artifact(Actor):
     
     def set_velocity(self, velocity):
         return super().set_velocity(velocity)
+
+    def get_velocity(self, velocity):
+        return super().get_velocity(velocity)
+    
+    def move_next(self, max_x, max_y):
+        return super().move_next(max_x, max_y)
 
     
 
