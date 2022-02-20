@@ -37,6 +37,11 @@ class Director:
 
         artifacts = cast.get_actors("artifacts")
 
+        # Directs artifacts to move
+        move_velocity = Point(ARTIFACT_X_SPEED, ARTIFACT_Y_SPEED)
+        for artifact in artifacts:
+            artifact.set_velocity(move_velocity)
+
         while self._video_service.is_window_open():
             self._get_inputs(cast)
             self._do_updates(cast)
@@ -50,16 +55,9 @@ class Director:
             cast (Cast): The cast of actors.
         """
         robot = cast.get_first_actor("robots")
-        artifacts = cast.get_actors("artifacts")
 
         velocity = self._keyboard_service.get_direction()
         robot.set_velocity(velocity)
-
-        # Directs artifact to move down
-        down_velocity = Point(ARTIFACT_X_SPEED, ARTIFACT_Y_SPEED)
-        for artifact in artifacts:
-            artifact.set_velocity(down_velocity)
-
 
     def _do_updates(self, cast):
         """Updates the robot's position and resolves any collisions with artifacts.
