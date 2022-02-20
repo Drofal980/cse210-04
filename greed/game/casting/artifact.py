@@ -29,6 +29,9 @@ class Artifact(Actor):
     def set_text(self, text):
         return super().set_text(text)
 
+    def get_text(self):
+        return super().get_text()
+
     def set_font_size(self, font_size):
         return super().set_font_size(font_size)
     
