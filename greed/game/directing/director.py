@@ -1,4 +1,7 @@
+import random
+
 from game.shared.point import Point
+
 ARTIFACT_X_SPEED = 0
 ARTIFACT_Y_SPEED = 15
 SCORE = 0
@@ -52,6 +55,7 @@ class Director:
         velocity = self._keyboard_service.get_direction()
         robot.set_velocity(velocity)
 
+        # Directs artifact to move down
         down_velocity = Point(ARTIFACT_X_SPEED, ARTIFACT_Y_SPEED)
         for artifact in artifacts:
             artifact.set_velocity(down_velocity)
@@ -73,16 +77,17 @@ class Director:
         robot.move_next(max_x, max_y)
 
         for artifact in artifacts:
-            #Moves each Artifact down
             artifact.move_next(max_x, max_y)
             
             if robot.get_position().equals(artifact.get_position()):
                 if artifact.get_text() == "*":
                     self._score += 1
                     cast.remove_actor("artifacts", artifact)
+                    
                 elif artifact.get_text().lower() == "o":
                     self._score -= 1
                     cast.remove_actor("artifacts", artifact)
+
             message = "Score: " + str(self._score)
             banner.set_text(message)
                 
@@ -97,3 +102,4 @@ class Director:
         actors = cast.get_all_actors()
         self._video_service.draw_actors(actors)
         self._video_service.flush_buffer()
+    
