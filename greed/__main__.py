@@ -72,6 +72,8 @@ def main():
         artifact.set_color(color)
         artifact.set_position(position)
         cast.add_actor("artifacts", artifact)
+
+        # Change code above to add rocks and gems
     
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
