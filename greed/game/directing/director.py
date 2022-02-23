@@ -4,7 +4,6 @@ from game.shared.point import Point
 
 ARTIFACT_X_SPEED = 0
 ARTIFACT_Y_SPEED = 15
-SCORE = 0
 
 class Director:
     """A person who directs the game. 
