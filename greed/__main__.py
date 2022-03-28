@@ -41,7 +41,7 @@ def main():
     
     # create the robot
     x = int(MAX_X / 2)
-    y = int(MAX_Y - 15)
+    y = MAX_Y - CELL_SIZE
     position = Point(x, y)
 
     robot = Actor()
